@@ -1,0 +1,285 @@
+{
+  "name": "UniFi Overview",
+  "description": null,
+  "permissions": "PUBLIC_READ_WRITE",
+  "pages": [
+    {
+      "guid": "Nzg0ODY3N3xWSVp8REFTSEJPQVJEfDQ3NDg3MDMx",
+      "name": "Overview",
+      "description": null,
+      "widgets": [
+        {
+          "id": "528253221",
+          "title": null,
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 3,
+            "height": 6
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "![UniFi](https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/ubiquiti-unifi.png)\n## UniFi Overview"
+          }
+        },
+        {
+          "id": "528253222",
+          "title": null,
+          "layout": {
+            "column": 4,
+            "row": 1,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "chartStyles": {
+              "lineInterpolation": "linear"
+            },
+            "dataFormatters": [],
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  <YourAccountID>
+                ],
+                "query": "SELECT uniqueCount(deviceId) AS 'Offline Devices' FROM `UniFiDeviceStatus`  SINCE 60 minutes ago UNTIL now WHERE state = 'OFFLINE' and siteName IN ({{Locations}})"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholdsWithSeriesOverrides": {
+              "thresholds": [
+                {
+                  "from": 0,
+                  "severity": "success",
+                  "to": 50
+                },
+                {
+                  "from": 51,
+                  "severity": "warning",
+                  "to": 200
+                },
+                {
+                  "from": 200,
+                  "severity": "critical"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "528253223",
+          "title": null,
+          "layout": {
+            "column": 6,
+            "row": 1,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "chartStyles": {
+              "lineInterpolation": "linear"
+            },
+            "dataFormatters": [],
+            "facet": {
+              "showOtherSeries": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  <YourAccountID>
+                ],
+                "query": "SELECT uniqueCount(deviceId) AS 'Online Devices' FROM `UniFiDeviceStatus`  SINCE 60 minutes ago UNTIL now WHERE state = 'ONLINE' and siteName IN ({{Locations}})"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholdsWithSeriesOverrides": {
+              "thresholds": [
+                {
+                  "from": 100,
+                  "severity": "success"
+                },
+                {
+                  "from": 50,
+                  "severity": "warning",
+                  "to": 99
+                },
+                {
+                  "from": 0,
+                  "severity": "critical",
+                  "to": 49
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "528253224",
+          "title": null,
+          "layout": {
+            "column": 8,
+            "row": 1,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "chartStyles": {
+              "lineInterpolation": "linear"
+            },
+            "dataFormatters": [],
+            "facet": {
+              "showOtherSeries": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  <YourAccountID>
+                ],
+                "query": "SELECT uniqueCount(deviceId) AS 'Pending Adoption' FROM `UniFiDeviceStatus`  SINCE 60 minutes ago UNTIL now WHERE state = 'PENDING_ADOPTION' and siteName IN ({{Locations}})"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholdsWithSeriesOverrides": {
+              "thresholds": [
+                {
+                  "from": 0,
+                  "severity": "success",
+                  "to": 99
+                },
+                {
+                  "from": 100,
+                  "severity": "warning",
+                  "to": 299
+                },
+                {
+                  "from": 300,
+                  "severity": "critical"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "528253225",
+          "title": null,
+          "layout": {
+            "column": 10,
+            "row": 1,
+            "width": 3,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "billboardSettings": {
+              "visual": {
+                "alignment": "inline"
+              }
+            },
+            "chartStyles": {
+              "lineInterpolation": "linear"
+            },
+            "dataFormatters": [],
+            "facet": {
+              "showOtherSeries": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  <YourAccountID>
+                ],
+                "query": "SELECT uniqueCount(siteId)  AS 'Locations Monitored' FROM `UniFiDeviceStatus`  SINCE 60 minutes ago UNTIL now "
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "id": "528253228",
+          "title": "Locations",
+          "layout": {
+            "column": 4,
+            "row": 3,
+            "width": 9,
+            "height": 4
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.table"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  <YourAccountID>
+                ],
+                "query": "SELECT * FROM `UniFiDeviceStatus` SINCE 60 minutes ago UNTIL now where siteName IN ({{Locations}})"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "name": "Locations",
+      "items": null,
+      "defaultValues": [
+        {
+          "value": {
+            "string": "*"
+          }
+        }
+      ],
+      "nrqlQuery": {
+        "accountIds": [
+          <YourAccountID>
+        ],
+        "query": "SELECT uniques(siteName) FROM `UniFiDeviceStatus` SINCE 60 minutes ago UNTIL now"
+      },
+      "options": {
+        "hiddenOnVariablesBar": false,
+        "ignoreTimeRange": true,
+        "excluded": false,
+        "showApplyAction": true
+      },
+      "title": "Locations",
+      "type": "NRQL",
+      "isMultiSelection": true,
+      "replacementStrategy": "STRING"
+    }
+  ]
+}
